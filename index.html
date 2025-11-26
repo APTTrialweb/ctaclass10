@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class 10 Free Study Material</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Tailwind CDN (works in Canvas Preview) -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  
+
+  <style>
+    body {
+      background: #f7f9fc;
+      font-family: 'Inter', sans-serif;
+    }
+    .glass {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+
+<body onload="AOS.init()">
+
+  <!-- HERO SECTION -->
+  <section class="w-full min-h-screen flex items-center justify-center px-6 pt-16">
+    <div class="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- LEFT CONTENT -->
+      <div  >
+        <h1 class="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+          Get FREE Class 10  
+          <span class="text-blue-600">Notes, PYQs, Videos & More!</span>
+        </h1>
+
+        <p class="text-lg text-gray-700 mb-6">
+          Access the complete Class 10 Study Material Library — Notes, NCERT Solutions, Sample Papers, Mind-Maps, Formulas, ALL in one place.
+        </p>
+
+        <div class="flex gap-4 mb-6">
+          <img src="https://img.icons8.com/?size=512&id=59804&format=png" class="w-10">
+          <img src="https://img.icons8.com/?size=512&id=59807&format=png" class="w-10">
+          <img src="https://img.icons8.com/?size=512&id=59820&format=png" class="w-10">
+        </div>
+
+        <p class="text-md text-gray-600 italic">
+          ⭐ Trusted by 12,000+ Class 10 Students
+        </p>
+      </div>
+
+      <!-- RIGHT FORM -->
+      <div class="glass shadow-xl rounded-2xl p-8"  >
+
+        <h2 class="text-2xl font-bold mb-4 text-gray-900">Get Instant Access</h2>
+        <p class="text-gray-600 mb-6">Fill the form below & receive the drive link instantly.</p>
+
+        <form id="ctaForm" class="space-y-4" action="https://docs.google.com/forms/d/e/1FAIpQLSfKPzDWfT6Cw9ATPfnwYamoIn6Z89z8xztnFIA7dGFkNLkeIw/formResponse" method="POST" target="_blank">
+          <input name="entry.1833387766" type="text" placeholder="Full Name" class="w-full p-3 border rounded-lg" required>
+          <input name="entry.1689071156" type="email" placeholder="Email" class="w-full p-3 border rounded-lg" required>
+          <input name="entry.1276313376" type="tel" placeholder="Phone Number" class="w-full p-3 border rounded-lg" required>
+
+          <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg">
+            Get Study Material
+          </button>
+        </form>
+
+        <!-- Hidden Message After Submit -->
+        <p id="successMsg" class="hidden mt-4 text-green-700 font-semibold text-center">
+          🎉 Link sent successfully! Check your WhatsApp / Email.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("ctaForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      // Show success message
+      document.getElementById("successMsg").classList.remove("hidden");
+
+      // OPTIONAL: Redirect to drive link directly
+      // window.location.href = "YOUR_DRIVE_LINK_HERE";
+    });
+  </script>
+
+</body>
+</html>
