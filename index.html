@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Tailwind CDN (works in Canvas Preview) -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- AOS CSS kept for styles only (we're not using its JS in Canvas) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  
 
   <style>
     body {
@@ -19,20 +19,27 @@
       background: rgba(255,255,255,0.6);
       backdrop-filter: blur(12px);
     }
+    /* Simple fade-in animations that work without external JS */
+    .fade-up { opacity: 0; transform: translateY(10px); animation: fadeUp 0.7s ease forwards; }
+    .fade-right { opacity: 0; transform: translateX(-10px); animation: fadeRight 0.7s ease forwards; }
+    .fade-left { opacity: 0; transform: translateX(10px); animation: fadeLeft 0.7s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0);} }
+    @keyframes fadeRight { to { opacity: 1; transform: translateX(0);} }
+    @keyframes fadeLeft { to { opacity: 1; transform: translateX(0);} }
   </style>
 </head>
 
-<body onload="AOS.init()">
+<body>
 
   <!-- HERO SECTION -->
   <section class="w-full min-h-screen flex items-center justify-center px-6 pt-16">
     <div class="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center">
 
       <!-- LEFT CONTENT -->
-      <div  >
+      <div class="fade-right" style="animation-delay: 0.05s;">
         <h1 class="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-          Get FREE Class 10  
-          <span class="text-blue-600">Notes, PYQs, Videos & More!</span>
+          Get FREE Class 10
+          <span class="text-blue-600"> Notes, PYQs, Videos & More!</span>
         </h1>
 
         <p class="text-lg text-gray-700 mb-6">
@@ -40,23 +47,22 @@
         </p>
 
         <div class="flex gap-4 mb-6">
-          <img src="https://img.icons8.com/?size=512&id=59804&format=png" class="w-10">
-          <img src="https://img.icons8.com/?size=512&id=59807&format=png" class="w-10">
-          <img src="https://img.icons8.com/?size=512&id=59820&format=png" class="w-10">
+          <img src="https://img.icons8.com/?size=512&id=59804&format=png" class="w-10" alt="icon-1">
+          <img src="https://img.icons8.com/?size=512&id=59807&format=png" class="w-10" alt="icon-2">
+          <img src="https://img.icons8.com/?size=512&id=59820&format=png" class="w-10" alt="icon-3">
         </div>
 
-        <p class="text-md text-gray-600 italic">
-          ⭐ Trusted by 12,000+ Class 10 Students
-        </p>
+        <p class="text-md text-gray-600 italic">⭐ Trusted by 12,000+ Class 10 Students</p>
       </div>
 
       <!-- RIGHT FORM -->
-      <div class="glass shadow-xl rounded-2xl p-8"  >
+      <div class="glass shadow-xl rounded-2xl p-8 fade-left" style="animation-delay: 0.1s;">
 
         <h2 class="text-2xl font-bold mb-4 text-gray-900">Get Instant Access</h2>
         <p class="text-gray-600 mb-6">Fill the form below & receive the drive link instantly.</p>
 
-        <form id="ctaForm" class="space-y-4" action="https://docs.google.com/forms/d/e/1FAIpQLSfKPzDWfT6Cw9ATPfnwYamoIn6Z89z8xztnFIA7dGFkNLkeIw/formResponse" method="POST" target="_blank">
+        <!-- Connected to Google Forms using formResponse and field entry IDs -->
+        <form id="ctaForm" class="space-y-4">
           <input name="entry.1833387766" type="text" placeholder="Full Name" class="w-full p-3 border rounded-lg" required>
           <input name="entry.1689071156" type="email" placeholder="Email" class="w-full p-3 border rounded-lg" required>
           <input name="entry.1276313376" type="tel" placeholder="Phone Number" class="w-full p-3 border rounded-lg" required>
@@ -67,23 +73,37 @@
         </form>
 
         <!-- Hidden Message After Submit -->
-        <p id="successMsg" class="hidden mt-4 text-green-700 font-semibold text-center">
-          🎉 Link sent successfully! Check your WhatsApp / Email.
-        </p>
+        <p id="successMsg" class="hidden mt-4 text-green-700 font-semibold text-center">🎉 Link sent successfully! Check your WhatsApp / Email.</p>
 
       </div>
     </div>
   </section>
 
   <script>
-    document.getElementById("ctaForm").addEventListener("submit", function(e){
+    const form = document.getElementById('ctaForm');
+    const successMsg = document.getElementById('successMsg');
+    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfKPzDWfT6Cw9ATPfnwYamoIn6Z89z8xztnFIA7dGFkNLkeIw/formResponse";
+    const DRIVE_REDIRECT = "https://drive.google.com"; // change to your drive link
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Show success message
-      document.getElementById("successMsg").classList.remove("hidden");
+      const formData = new FormData(form);
 
-      // OPTIONAL: Redirect to drive link directly
-      // window.location.href = "YOUR_DRIVE_LINK_HERE";
+      // Silent Google Form submit
+      await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+
+      // Show success message
+      successMsg.classList.remove('hidden');
+
+      // Auto redirect after 1 second
+      setTimeout(() => {
+        window.location.href = DRIVE_REDIRECT;
+      }, 1000);
     });
   </script>
 
